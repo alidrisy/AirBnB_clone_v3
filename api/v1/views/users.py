@@ -5,7 +5,8 @@ from models import storage
 from flask import jsonify, make_response, abort, request
 
 
-@app_views.route('/users/<user_id>', methods=['GET'], strict_):
+@app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
+def get_user(user_id):
     """ GET user by id """
     user = storage.get('User', user_id)
     if user:
