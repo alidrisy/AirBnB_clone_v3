@@ -5,11 +5,11 @@ from flask import jsonify, make_response
 from models import storage
 
 
-
 @app_views.route('/status', strict_slashes=False)
 def states():
     """ Returns a JSON status """
     return make_response(jsonify({"status": "OK"}))
+
 
 @app_views.route('/stats', strict_slashes=False)
 def print_count():
