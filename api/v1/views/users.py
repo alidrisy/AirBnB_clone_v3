@@ -29,6 +29,7 @@ def delete_user(user_id):
     user = storage.get('User', user_id)
     if user:
         storage.delete(user)
+        storage.save()
         return make_response(jsonify({}), 200)
     else:
         abort(404)
@@ -45,14 +46,13 @@ def create_user():
         abort(400, 'Missing email')
     elif 'password' not in data:
         abort(400, 'Missing password')
-    user = User()
-    [setattr(user, k, v) for k, v in data.items()]
+    user = User(**data)
     user.save()
     return make_response(jsonify(user.to_dict()), 201)
 
 
 @app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
-def update_user(user_id):ll
+def update_user(user_id):
     """ Updates a User object """
     user = storage.get('User', user_id)
     if user:
