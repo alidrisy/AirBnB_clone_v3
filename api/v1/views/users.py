@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" User model that handles all default RESTFul API actions """
+""" User views for RESTFul API actions """
 from api.v1.views import app_views
 from models import storage
 from flask import jsonify, make_response, abort, request
@@ -17,7 +17,7 @@ def get_user(user_id):
 
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
 def get_users():
-    """ GET users as json """
+    """ GET all users objects """
     users = storage.all('User')
     data = [user.to_dict() for user in users.values()]
     return make_response(jsonify(data))
@@ -36,7 +36,8 @@ def delete_user(user_id):
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def create_user():
-    """ Creates a User """
+    """ Creates a new User object """
+    from models.user import User
     data = request.get_json()
     if not data:
         abort(400, 'Not a JSON')
@@ -44,7 +45,6 @@ def create_user():
         abort(400, 'Missing email')
     elif 'password' not in data:
         abort(400, 'Missing password')
-    from models.user import User
     user = User()
     [setattr(user, k, v) for k, v in data.items()]
     user.save()
@@ -52,7 +52,7 @@ def create_user():
 
 
 @app_views.route('/users/<user_id>', methods=['PUT'], strict_slashes=False)
-def update_user(user_id):
+def update_user(user_id):ll
     """ Updates a User object """
     user = storage.get('User', user_id)
     if user:
