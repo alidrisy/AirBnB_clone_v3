@@ -6,15 +6,18 @@ from flask import jsonify, make_response, abort, request
 
 
 @app_views.route('/users/<user_id>', methods=['GET'], strict_slashes=False)
+def get_user(user_id=None):
+    """ GET user by id """
+    user = storage.get('User', user_id)
+    if user:
+        return make_response(jsonify(user.to_dict()))
+    else:
+        abort(404)
+
+
 @app_views.route('/users', methods=['GET'], strict_slashes=False)
-def get_users(user_id=None):
-    """ GET users or user by id """
-    if user_id:
-        user = storage.get('User', user_id)
-        if user:
-            return make_response(jsonify(user.to_dict()))
-        else:
-            abort(404)
+def get_users():
+    """ GET users as json """
     users = storage.all('User')
     data = [user.to_dict() for user in users.values()]
     return make_response(jsonify(data))

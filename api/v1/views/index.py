@@ -5,7 +5,7 @@ from flask import jsonify, make_response
 from models import storage
 
 
-@app_views.route('/status', strict_slashes=False)
+@app_views.route('/status', methods=['GET'], strict_slashes=False)
 def status():
     """ Returns a JSON status """
     return make_response(jsonify({"status": "OK"}), 200)
