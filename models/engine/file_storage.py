@@ -73,6 +73,8 @@ class FileStorage:
         """
         Returns the object based on the class and its ID, or None if not found
         """
+        if type(cls) is str:
+            cls = classes[cls]
         key = f"{cls.__name__}.{id}"
         if key in self.__objects:
             return self.__objects[key]
