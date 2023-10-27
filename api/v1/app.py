@@ -31,4 +31,4 @@ def teardown(exception):
 
 
 if __name__ == "__main__":
-    app.run(host, port)
+    app.run(host, port, threaded=True)
