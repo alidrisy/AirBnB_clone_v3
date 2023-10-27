@@ -23,6 +23,7 @@ def not_found_error(exception):
     """ “404 page”, a “Not found” """
     return make_response(jsonify({"error": "Not found"}), 404)
 
+
 @app.teardown_appcontext
 def teardown(exception):
     """ Closes the storage on teardown """
