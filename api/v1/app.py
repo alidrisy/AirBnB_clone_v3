@@ -8,15 +8,6 @@ from os import getenv
 app = Flask(__name__)
 app.register_blueprint(app_views)
 
-if getenv('HBNB_API_HOST'):
-    host = getenv('HBNB_API_HOST')
-else:
-    host = '0.0.0.0'
-if getenv('HBNB_API_PORT'):
-    port = getenv('HBNB_API_PORT')
-else:
-    port = 5000
-
 
 @app.errorhandler(404)
 def not_found_error(exception):
@@ -31,4 +22,5 @@ def teardown(exception):
 
 
 if __name__ == "__main__":
-    app.run(host, port, threaded=True)
+    app.run(host=getenv('HBNB_API_HOST', '0.0.0.0'),
+            port=getenv('HBNB_API_PORT', 5000), threaded=True)
