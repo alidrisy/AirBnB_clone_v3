@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ User view for RESTFul API"""
+
 from models import storage
 from flask import request, jsonify, abort, make_response
 from api.v1.views import app_views
