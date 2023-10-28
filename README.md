@@ -159,6 +159,5 @@ No known bugs at this time.
 Abdulrhman Alidrisy - [Github](https://github.com/alidrisy) / [Twitter](https://twitter.com/AbdulrahmanAdeb?t=c6JBtd7TXIrv0vyOAPryMQ&s=09)  
 Ahmed Abd El Hameed - [Github](https://github.com/ahmed-abdelhameed1706) / [Twitter](https://twitter.com/AJVHz?t=GJERYyAFDGekcJEFD9mN_Q&s=09)
 
-Second part of Airbnb: Joann Vuong
 ## License
 Public Domain. No copy write protection. 
