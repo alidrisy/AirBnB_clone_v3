@@ -58,11 +58,11 @@ class BaseModel:
         models.storage.new(self)
         models.storage.save()
 
-    def to_dict(self, to_save=None):
+    def to_dict(self, to_save=False):
         """returns a dictionary containing all keys/values of the instance"""
         new_dict = self.__dict__.copy()
         if "_password" in new_dict:
-            if to_save == "to_disk":
+            if to_save:
                 new_dict['password'] = new_dict['_password']
             del new_dict['_password']
 
