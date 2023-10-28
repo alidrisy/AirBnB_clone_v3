@@ -21,7 +21,7 @@ def get_reviews_for_place(place_id):
         return jsonify(reviews)
 
 
-@app_views.route('/reviews/<review_id>', methods=['GET'])
+@app_views.route('/reviews/<review_id>', methods=['GET'], strict_slashes=False)
 def get_review_by_id(review_id):
     """gets review by id"""
     review = storage.get(Review, review_id)
@@ -32,7 +32,7 @@ def get_review_by_id(review_id):
 
 
 @app_views.route('/reviews/<review_id>',
-                 methods=['DELETE'])
+                 methods=['DELETE'], strict_slashes=False)
 def delete_review_by_id(review_id):
     """deletes review by id"""
     review = storage.get(Review, review_id)
@@ -44,7 +44,8 @@ def delete_review_by_id(review_id):
         return jsonify({}), 200
 
 
-@app_views.route('/places/<place_id>/reviews', methods=['POST'])
+@app_views.route('/places/<place_id>/reviews', methods=['POST'],
+                 strict_slashes=False)
 def create_a_review(place_id):
     """creates a new review for a place"""
     body = request.get_json()
@@ -70,7 +71,7 @@ def create_a_review(place_id):
     return jsonify(review.to_dict()), 201
 
 
-@app_views.route('/reviews/<review_id>', methods=['PUT'])
+@app_views.route('/reviews/<review_id>', methods=['PUT'], strict_slashes=False)
 def update_a_review(review_id):
     """updates a review by its id"""
     review = storage.get(Review, review_id)
