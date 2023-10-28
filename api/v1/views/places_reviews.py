@@ -70,6 +70,7 @@ def create_a_review(place_id):
         abort(400, "Missing text")
 
     review = Review(**body)
+    review.place_id = place_id
     review.save()
     return jsonify(review.to_dict()), 201
 
@@ -90,4 +91,5 @@ def update_a_review(review_id):
         if key not in ['id', 'user_id', 'place_id',
                        'created_at', 'updated_at']:
             setattr(review, key, value)
+    review.save()
     return jsonify(review.to_dict()), 200
