@@ -8,7 +8,7 @@ from models.place import Place
 
 
 @app_views.route('/places/<place_id>/reviews',
-                 methods=['GET'], strict_slashes=False)
+                 methods=['GET'])
 def get_reviews_for_place(place_id):
     """function to get reviews for a place"""
     place = storage.get(Place, place_id)
@@ -21,7 +21,7 @@ def get_reviews_for_place(place_id):
         return jsonify(reviews)
 
 
-@app_views.route('/reviews/<review_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/reviews/<review_id>', methods=['GET'])
 def get_review_by_id(review_id):
     """gets review by id"""
     review = storage.get(Review, review_id)
@@ -32,7 +32,7 @@ def get_review_by_id(review_id):
 
 
 @app_views.route('/reviews/<review_id>',
-                 methods=['DELETE'], strict_slashes=False)
+                 methods=['DELETE'])
 def delete_review_by_id(review_id):
     """deletes review by id"""
     review = storage.get(Review, review_id)
@@ -44,8 +44,7 @@ def delete_review_by_id(review_id):
         return jsonify({}), 200
 
 
-@app_views.route('/places/<place_id>/reviews',
-                 methods=['POST'], strict_slashes=False)
+@app_views.route('/places/<place_id>/reviews', methods=['POST'])
 def create_a_review(place_id):
     """creates a new review for a place"""
     body = request.get_json()
@@ -71,7 +70,7 @@ def create_a_review(place_id):
     return jsonify(review.to_dict()), 201
 
 
-@app_views.route('/reviews/<review_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/reviews/<review_id>', methods=['PUT'])
 def update_a_review(review_id):
     """updates a review by its id"""
     review = storage.get(Review, review_id)
