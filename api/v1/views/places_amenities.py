@@ -13,9 +13,8 @@ type_storage = getenv('HBNB_TYPE_STORAGE')
 def get_place_amenities(place_id):
     """ GET amenities based on place id """
     place = storage.get('Place', place_id)
-    print(place.amenity_ids)
     if place:
-        if type_storage == 'db':
+        if getenv('HBNB_TYPE_STORAGE') == 'db':
             amenities = place.amenities
         else:
             ids = place.amenity_ids
@@ -38,6 +37,7 @@ def del_place_amenity(place_id, amenity_id):
                 place.amenities.remove(amenity)
             else:
                 place.amenity_ids.remove(amenity.id)
+            place.save()
             return make_response(jsonify({}), 200)
         else:
             abort(404)
