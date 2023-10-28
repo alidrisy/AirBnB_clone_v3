@@ -8,7 +8,7 @@ from models.place import Place
 
 
 @app_views.route('/places/<place_id>/reviews',
-                 methods=['GET'])
+                 methods=['GET'], strict_slashes=False)
 def get_reviews_for_place(place_id):
     """function to get reviews for a place"""
     place = storage.get(Place, place_id)
