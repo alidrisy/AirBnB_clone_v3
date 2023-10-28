@@ -14,14 +14,14 @@ class User(BaseModel, Base):
     if models.storage_t == 'db':
         __tablename__ = 'users'
         email = Column(String(128), nullable=False)
-        _password = Column(String(128), nullable=False)
+        password = Column(String(128), nullable=False)
         first_name = Column(String(128), nullable=True)
         last_name = Column(String(128), nullable=True)
         places = relationship("Place", backref="user")
         reviews = relationship("Review", backref="user")
     else:
         email = ""
-        _password = ""
+        password = ""
         first_name = ""
         last_name = ""
 
@@ -29,12 +29,9 @@ class User(BaseModel, Base):
         """initializes user"""
         super().__init__(*args, **kwargs)
 
-    @property
-    def password(self):
-        """ Get method for password """
-        return self._password
-
-    @password.setter
-    def password(self, value):
+    def __setattr__(self, __name, __value):
         """ Set method for password """
-        self._password = md5(value.encode()).hexdigest()
+        if __name == "password":
+            super().__setattr__(__name, md5(__value.encode()).hexdigest())
+        else:
+            super().__setattr__(__name, __value)
