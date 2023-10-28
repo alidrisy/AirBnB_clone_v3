@@ -126,6 +126,8 @@ TestBaseModel class:
 * `def test_user_module_docstring(self)` - Test for the user.py module docstring
 * `def test_user_class_docstring(self)` - Test for the User class docstring
 
+[/api](/api) - Contains RESTFul API for the web app
+
 
 ## Examples of use
 ```
@@ -154,8 +156,8 @@ EOF  all  create  destroy  help  quit  show  update
 No known bugs at this time. 
 
 ## Authors
-Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twitter.com/alexa_orrico)  
-Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)
+Abdulrhman Alidrisy - [Github](https://github.com/alidrisy) / [Twitter](https://twitter.com/AbdulrahmanAdeb?t=c6JBtd7TXIrv0vyOAPryMQ&s=09)  
+Ahmed Abd El Hameed - [Github](https://github.com/ahmed-abdelhameed1706) / [Twitter](https://twitter.com/AJVHz?t=GJERYyAFDGekcJEFD9mN_Q&s=09)
 
 Second part of Airbnb: Joann Vuong
 ## License
