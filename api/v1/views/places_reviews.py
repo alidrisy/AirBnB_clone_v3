@@ -60,7 +60,7 @@ def create_a_review(place_id):
         abort(400, "Missing user_id")
 
     user_id = body.get('user_id')
-    
+
     user = storage.get(User, user_id)
 
     if user is None:
@@ -90,4 +90,4 @@ def update_a_review(review_id):
         if key not in ['id', 'user_id', 'place_id',
                        'created_at', 'updated_at']:
             setattr(review, key, value)
-    return jsonify(review), 200
+    return jsonify(review.to_dict()), 200
