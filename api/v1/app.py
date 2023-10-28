@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Flask web app """
+""" Flask web app api """
 from flask import Flask, make_response, jsonify
 from models import storage
 from api.v1.views import app_views
@@ -16,7 +16,7 @@ def not_found_error(exception):
 
 
 @app.teardown_appcontext
-def teardown(exception):
+def teardown_storage(exception):
     """ Closes the storage on teardown """
     storage.close()
 
