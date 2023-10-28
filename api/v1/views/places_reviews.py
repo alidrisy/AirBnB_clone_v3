@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""API View for reviews"""
+""" Reviews view for RESTFul API"""
 from api.v1.views import app_views
 from models import storage
 from flask import Flask, request, jsonify, abort, make_response
