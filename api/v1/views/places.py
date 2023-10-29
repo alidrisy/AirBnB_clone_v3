@@ -111,11 +111,9 @@ def place_search():
             if state:
                 state_cities = state.cities
                 for city in state_cities:
-                    #city = storage.get(City, city_id)
                     if city:
                         places = city.places
                         for place in places:
-                            #place = storage.get(Place, place_id)
                             if place:
                                 unique_places.add(place)
 
@@ -125,20 +123,18 @@ def place_search():
             if city:
                 places = city.places
                 for place in places:
-                    #place = storage.get(Place, place_id)
                     if place:
                         unique_places.add(place)
 
-    filtered_places = set()
+    filtered_places = set(unique_places)
 
     if amenities:
         for amenity_id in amenities:
-            for place in unique_places:
+            for place in filtered_places.copy():
                 place_amenities = place.amenities
-                for amenity in place_amenities:
-                    if amenity.id == amenity_id:
-                        filtered_places.add(place)
-            
+                if not all(amenity.id == amenity_id
+                           for amenity in place_amenities):
+                    filtered_places.remove(place)
 
     found_places = [place.to_dict() for place in filtered_places]
 
