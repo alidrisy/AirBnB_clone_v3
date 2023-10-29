@@ -3,6 +3,9 @@
 from api.v1.views import app_views
 from flask import make_response, jsonify, request, abort
 from models import storage
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
 
 
 @app_views.route('/cities/<city_id>/places', methods=['GET'],
@@ -82,7 +85,7 @@ def update_place(place_id):
         abort(404)
 
 
-@app_views.route('/api/v1/places_search', methods=['POST'], strict_slashes=False)
+@app_views.route('/places_search', methods=['POST'], strict_slashes=False)
 def place_search():
     """function to search places based on the json in the request"""
     body = request.get_json()
