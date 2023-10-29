@@ -134,8 +134,10 @@ def place_search():
     if amenities:
         for amenity_id in amenities:
             for place in unique_places:
-                if amenity_id in place.amenities:
-                    filtered_places.add(place)
+                place_amenities = place.amenities
+                for amenity in place_amenities:
+                    if amenity.id == amenity_id:
+                        filtered_places.add(place)
             
 
     found_places = [place.to_dict() for place in filtered_places]
