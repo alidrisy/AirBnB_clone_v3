@@ -6,6 +6,7 @@ from models import storage
 from models.state import State
 from models.city import City
 from models.amenity import Amenity
+from models.place import Place
 
 
 @app_views.route('/cities/<city_id>/places', methods=['GET'],
@@ -108,26 +109,35 @@ def place_search():
         for state_id in states:
             state = storage.get(State, state_id)
             if state:
-                cities = state.cities
-                for city_id in cities:
-                    city = storage.get(City, city_id)
+                state_cities = state.cities
+                for city in state_cities:
+                    #city = storage.get(City, city_id)
                     if city:
                         places = city.places
-                        for place_id in places:
-                            place = storage.get(Place, place_id)
+                        for place in places:
+                            #place = storage.get(Place, place_id)
                             if place:
-                                found_places.add(place)
+                                unique_places.add(place)
 
     if cities:
         for city_id in cities:
             city = storage.get(City, city_id)
             if city:
                 places = city.places
-                for place_id in places:
-                    place = storage.get(Place, place_id)
+                for place in places:
+                    #place = storage.get(Place, place_id)
                     if place:
-                        found_places.add(place)
+                        unique_places.add(place)
 
-    found_places = list(unique_places)
+    filtered_places = set()
+
+    if amenities:
+        for amenity_id in amenities:
+            for place in unique_places:
+                if amenity_id in place.amenities:
+                    filtered_places.add(place)
+            
+
+    found_places = [place.to_dict() for place in filtered_places]
 
     return jsonify(found_places)
