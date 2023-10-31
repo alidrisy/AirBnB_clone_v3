@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Play YouTube Video as Audio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.min.js"></script>
+    <script>
+        const socket = io('/audio');
+        const audio = new Audio();
+
+        socket.on('connect', () => {
+            socket.emit('play audio', { audio_path: '{{ audio_path }}' });
+        });
+
+        socket.on('audio data', (data) => {
+            const blob = new Blob([data.data], { type: 'audio/mpeg' });
+            const url = URL.createObjectURL(blob);
+            audio.src = url;
+            audio.play();
+        });
+    </script>
+</head>
+<body>
+    <h1>Playing audio...</h1>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play YouTube Audio</title>
+</head>
+<body>
+    <h1>Play YouTube Audio</h1>
+    <form action="{{ url_for('play', url='') }}" method="get">
+        <input type="text" name="url" placeholder="YouTube Video URL" required>
+        <button type="submit">Play</button>
+    </form>
+</body>
+</html>
