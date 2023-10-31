@@ -3,6 +3,10 @@
 from api.v1.views import app_views
 from flask import make_response, jsonify, request, abort
 from models import storage
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
 
 
 @app_views.route('/cities/<city_id>/places', methods=['GET'],
@@ -80,3 +84,58 @@ def update_place(place_id):
         return make_response(jsonify(place.to_dict()), 200)
     else:
         abort(404)
+
+
+@app_views.route('/places_search', methods=['POST'], strict_slashes=False)
+def place_search():
+    """function to search places based on the json in the request"""
+    body = request.get_json()
+
+    if body is None:
+        abort(400, 'Not a JSON')
+
+    states = body.get('states', [])
+    cities = body.get('cities', [])
+    amenities = body.get('amenities', [])
+
+    if not states and not cities and not amenities:
+        places = storage.all(Place).values()
+        places_list = [place.to_dict() for place in places]
+        return jsonify(places_list)
+
+    unique_places = set()
+
+    if states:
+        for state_id in states:
+            state = storage.get(State, state_id)
+            if state:
+                state_cities = state.cities
+                for city in state_cities:
+                    if city:
+                        places = city.places
+                        for place in places:
+                            if place:
+                                unique_places.add(place)
+
+    if cities:
+        for city_id in cities:
+            city = storage.get(City, city_id)
+            if city:
+                places = city.places
+                for place in places:
+                    if place:
+                        unique_places.add(place)
+
+    filtered_places = set(unique_places)
+
+    if amenities:
+        for amenity_id in amenities:
+            for place in filtered_places.copy():
+                place_amenities = place.amenities
+                if not all(amenity.id == amenity_id
+                           for amenity in place_amenities):
+                    filtered_places.remove(place)
+
+    found_places = [place.to_dict() for place in filtered_places]
+
+    return jsonify(found_places)
